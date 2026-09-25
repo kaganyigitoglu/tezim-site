@@ -372,7 +372,7 @@ const documents = [
       },
       {
         "heading": "3. Sayfa",
-        "text": "Okumadım, üç satır not var",
+        "text": "(Suret)\n\nBrusa vilayeti dahilinde İnegöl kazasına tabi Domaniç nahiyesinin Kozcağız ve Sarıtaş nam mahalde bir muceb harita mevcud krom madeni imtiyazına ba-ferman-ı alişan mutasarrıfı olan müteveffa Tatyos Masihyan’ın iki kıta hüccet-i mucebi bin iki yüz lira-yı Osmanî deyni olub mümaileyhin vefatıyla terekesine vaz’el-yed varis bulunan Beyoğlu’nda telgraf zükağında hanelerinde sakin olub muvakkiten ikamet itmekde bulunan (...)-hanende sakin teba’a-yı devlet-i aliyyeden Simyon Masihyan mezkur matlubatın tesviyesini taahhüd eylediği halde el-yevm tahsiline muvaffak olamadığımdan maden-i mezkur imtiyazı ise müteveffa Masihyan’ın hayatında Alman devleti teba’asından altıncı daire karşusunda 20 numerolu apartmanda mukim tüccardan Mösyö Charles Reiser namına muvaza’a suretiyle geçirilmiş keyfiyyet-i muvaza’a dahi Birinci Ticaret Mahkeme-yi Aliyyesi sebk iden kararıyla icra idilmiş olmağla matalib mahbure?-yi acizanemin temini zımnında bir ? ma’ruz hakikatde Matyos Masihyan terekesine aid olub muvaza’aen Mösyö Charles Reiser namında mukayyed bulunan mezkur krom madeni cevherinin hacze mecburiyyet hâsıl olub gerek imtiyaz gerek cevahir-i mezkurenin kendüsince ferağ veya füruhtu icab eylediğinden bedel-i akçesi mahkeme veznesine dipozito idilmedikce icra-yı muamele idilememesi zımnında işbu hacznamenin varis müteahhid merkum Simyon’a bir nüshasının zilyed mümaleyh Mösyö Charles Reiser’e bir nüshasının Meadin Nezaret-i Celilesi’ne bir nüshasının İzmid kazasına tebliğine karar virilüb keyfiyyetin icra memuriyyetine ?-esini istida eylerim olbabda emr ü irade efendim hazretlerinindir\n\nFi 31 Temmuz sene 312\n\nHristo Maccridi’nin (...)\n\nvekili Galata’da Büyük ?hanende\n34 numerolu otada mukim\ndava vekilleriden? Doktor\nKıtami? Alora?\n\n(Fransızca el yazısı)",
         "scan": {
           "name": "HR_HMS_ISO__00184_00021_002_001.jpg",
           "id": "1vucnWemEahWfY0_fgyR7RFNff0Mg4a8H"
@@ -495,7 +495,7 @@ const documents = [
   }
 ];
 const storagePrefix='tezim-document-v1-';
-for(const d of documents){try{const saved=JSON.parse(localStorage.getItem(storagePrefix+d.id));if(saved&&saved.id===d.id&&Array.isArray(saved.pages)){const basePages=d.pages||[];Object.assign(d,saved);d.pages=saved.pages.map((page,i)=>({...page,scan:page.scan||basePages[i]?.scan}));}}catch{}}
+for(const d of documents){try{const saved=JSON.parse(localStorage.getItem(storagePrefix+d.id));if(saved&&saved.id===d.id&&Array.isArray(saved.pages)){const basePages=d.pages||[];Object.assign(d,saved);d.pages=saved.pages.map((page,i)=>({...page,scan:page.scan||basePages[i]?.scan,text:d.id==='belge-011'&&i===2&&/^Okumadım, üç satır not var\.?$/.test(page.text||'')?basePages[i]?.text:page.text}));}}catch{}}
 const hrFirstPage=documents.find(d=>d.id==='belge-011')?.pages?.[0];
 if(hrFirstPage)hrFirstPage.text=(hrFirstPage.text||'').replace(/\n[ \t]+General-Konsulat(?=\n)/,'\nGeneral-Konsulat').replace(/\n[ \t]*\(?Fransızca el yazısı\)?[ \t]*\n/,'\n\n(Fransızca el yazısı)\n\n').replace(/\n{3,}/g,'\n\n');
 const hrSecondPage=documents.find(d=>d.id==='belge-011')?.pages?.[1];
