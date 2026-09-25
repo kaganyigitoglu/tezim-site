@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Tez Araştırması</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#fff;color:#222;font:15px/1.65 system-ui,-apple-system,sans-serif}header,main{max-width:800px;margin:auto;padding:0 28px}header{padding-top:32px;padding-bottom:24px;border-bottom:1px solid #e8e8e8}header a{font-weight:600;text-decoration:none}main{padding-top:44px;padding-bottom:80px}a{color:inherit;text-underline-offset:4px}a:hover{color:#666}h1{font-size:26px;line-height:1.4;font-weight:550;margin:0 0 30px}h2{font-size:17px;font-weight:600;margin:34px 0 10px}p{margin:12px 0;color:#666}.nav,.records{list-style:none;margin:0;padding:0}.nav li,.records li{border-bottom:1px solid #e8e8e8}.nav a,.records a{display:block;padding:20px 0;text-decoration:none}.nav a:hover,.records a:hover{background:#fafafa}.back{display:inline-block;color:#777;font-size:13px;margin-bottom:24px}.subtitle{font-size:13px;margin:-20px 0 30px}.list-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ddd;padding-bottom:12px;margin-top:34px}.list-head h2{margin:0;font-size:14px}.count{font-size:12px;color:#777}.empty{font-size:14px;padding:20px 0;color:#777}.code{font-family:ui-monospace,Consolas,monospace;font-size:15px}.record-title{display:block;font-size:13px;color:#777;margin-top:4px}label{display:block;font-size:13px;margin:28px 0 8px}input{font:inherit;width:100%;border:1px solid #ddd;border-radius:0;padding:10px 12px;background:white}.prose{white-space:pre-wrap;color:#444;overflow-wrap:anywhere}.record-date{overflow-wrap:anywhere}dl{display:grid;grid-template-columns:100px 1fr;font-size:14px;gap:8px}dt{color:#777}dd{margin:0}.files{padding-left:20px}[hidden]{display:none!important}:focus-visible{outline:2px solid #555;outline-offset:5px}@media(max-width:550px){header,main{padding-left:22px;padding-right:22px}main{padding-top:32px}h1{font-size:23px}.nav a{padding:18px 0}}
+.column-head{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:20px;padding:12px 0;border-bottom:1px solid #e8e8e8;color:#777;font-size:12px}.records a{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:4px 20px;align-items:baseline}.record-date{font-size:13px;color:#666}.record-title{grid-column:1/-1}.code{overflow-wrap:anywhere}@media(max-width:550px){.column-head,.records a{grid-template-columns:minmax(0,1fr) 90px;gap:4px 12px}}
+.metadata{border:1px solid #ddd;padding:18px 20px;margin:20px 0 32px}.metadata dl{display:grid;grid-template-columns:105px minmax(0,1fr);gap:10px 16px;margin:0}.metadata dt{font-weight:600;color:#444}.metadata dd{margin:0;overflow-wrap:anywhere}.reader-bar,.reader-controls{display:flex;align-items:center;justify-content:space-between;gap:12px}.reader-bar{border-bottom:1px solid #ddd;padding:12px 0;font-size:14px;font-weight:600}.reader-bar select{font:inherit;padding:6px 24px 6px 9px;border:1px solid #ddd;background:#fff}.page{border:1px solid #ddd;min-height:440px;margin:18px 0;padding:26px 30px;overflow-wrap:anywhere}.page h2{margin:0 0 24px;font-size:15px}.page .prose{white-space:pre-wrap;line-height:1.75}.reader-controls button{font:inherit;background:white;border:1px solid #ddd;padding:9px 13px;cursor:pointer}.reader-controls button:disabled{color:#999;cursor:default}.reader-controls span{font-size:13px;color:#666}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:550px){.metadata dl{grid-template-columns:1fr;gap:2px}.metadata dd{margin-bottom:8px}.page{padding:20px 18px;min-height:300px}}
+.edit-actions{display:flex;align-items:center;gap:16px;margin:12px 0}.edit-actions button,.form-controls button,#add-page,.page-editor button{font:inherit;background:#fff;border:1px solid #bbb;padding:8px 12px;cursor:pointer}.save-note{font-size:12px;margin:0 0 28px}.edit-actions span{font-size:12px;color:#555}#document-form{border:1px solid #ddd;padding:20px;margin:28px 0}#document-form label{margin:12px 0 5px;font-weight:600}#document-form textarea{font:inherit;width:100%;border:1px solid #ddd;padding:10px;resize:vertical;min-height:90px}.page-editor{border-top:1px solid #ddd;margin-top:20px;padding-top:18px}.page-editor textarea{min-height:220px!important}.form-controls{display:flex;gap:10px;margin-top:24px}
+.page #toggle-scan{display:block;margin-top:28px;border:1px solid #bbb;background:#fff;padding:9px 13px;font:inherit;cursor:pointer}#scan-panel{margin-top:18px}#scan-image{display:block;max-width:100%;width:auto;height:auto;border:1px solid #ddd}#scan-panel p{font-size:12px}#scan-link{display:inline-block;max-width:100%}
+body.document-view header,body.document-view main{max-width:1480px}body.document-view header{position:sticky;top:0;background:#fff;z-index:30;padding-top:12px;padding-bottom:12px}body.document-view main{padding-top:20px}.document-layout{display:grid;grid-template-columns:150px minmax(0,1fr) 185px;gap:22px;align-items:start}.document-layout>.reading-column{min-width:0}.document-layout>.left-column,.document-layout>.right-column{align-self:stretch}.sticky-side{position:sticky;top:65px}.left-column .back{display:block;font-size:12px;margin:0 0 24px}.left-column nav{border-top:1px solid #ddd;padding-top:12px}.left-column h2,.right-column h2{font-size:12px;margin:0 0 10px;font-weight:650;color:#666}.left-column ol{list-style:none;padding:0;margin:0}.left-column li{margin:0}.left-column button{display:block;width:100%;text-align:left;padding:6px 8px;border:0;border-left:2px solid transparent;background:#fff;color:#555;font:13px/1.4 system-ui,sans-serif;cursor:pointer}.left-column button:hover,.left-column button[aria-current="page"]{background:#f6f6f6;color:#111}.left-column button[aria-current="page"]{border-left-color:#555;font-weight:600}.reading-column h1{font-size:13px;margin:0 0 10px}.reading-column .metadata{position:sticky;top:60px;z-index:20;background:#fff;margin:0 0 14px;padding:10px 12px;box-shadow:0 2px 8px rgba(0,0,0,.04)}.reading-column .metadata dl{grid-template-columns:90px minmax(0,1fr);gap:3px 8px;font-size:12px;line-height:1.35}.right-column{font-size:12px}.right-column .sticky-side{border-top:1px solid #ddd;padding-top:12px}.right-column .edit-actions{display:block;margin:0}.right-column .edit-actions button{display:block;width:100%;text-align:left;padding:6px 8px;margin:0 0 7px;font-size:12px}.right-column .save-note{font-size:11px;line-height:1.5;margin:6px 0 18px}.right-column #document-body h2{font-size:12px;margin:16px 0 6px}.right-column .files{padding-left:17px;margin:6px 0}.right-column .files a{overflow-wrap:anywhere}.reading-column .page{margin-top:12px}.reading-column .reader-bar{padding:4px 0 9px}.reading-column .page{scroll-margin-top:230px}@media(max-width:650px){.document-layout{grid-template-columns:125px minmax(0,1fr);gap:16px}.right-column{grid-column:2;grid-row:2}.right-column .sticky-side{position:static}.right-column .edit-actions{display:flex;flex-wrap:wrap;gap:7px}.right-column .edit-actions button{width:auto}.right-column #document-body{margin-bottom:24px}}@media(max-width:620px){.document-layout{display:block}.left-column .sticky-side{position:static}.left-column nav{margin-bottom:14px}.left-column ol{display:flex;gap:4px;overflow-x:auto}.left-column li{flex:0 0 auto}.left-column button{width:auto;white-space:nowrap}.reading-column .metadata{top:48px}.right-column{margin-top:24px}}
+@media(min-width:651px) and (max-width:1000px){body.document-view main,body.document-view header{padding-left:16px;padding-right:16px}.document-layout{grid-template-columns:130px minmax(0,1fr) 135px;gap:10px}.reading-column .metadata dl{grid-template-columns:70px minmax(0,1fr);font-size:11px}}
+.reading-column .metadata{position:static;box-shadow:none}.left-column nav{max-height:calc(100vh - 130px);overflow-y:auto;scrollbar-width:thin}.left-column a[aria-current="page"]{font-weight:700;border-left-color:#555;background:#f6f6f6}.left-column ol a{display:block;padding:6px 6px;border-left:2px solid transparent;text-decoration:none;color:#555;font:11px/1.5 ui-monospace,Consolas,monospace;overflow-wrap:anywhere}.left-column ol a:hover{background:#f6f6f6}.reading-column .page{scroll-margin-top:65px}@media(max-width:620px){.left-column nav{max-height:none;overflow-x:auto;overflow-y:hidden}.left-column ol a{white-space:nowrap}}
+/* A soft neutral background reduces glare while keeping the document itself distinct. */
+body{background:#f3f2ee;color:#252822}
+body.document-view header{background:#f3f2ee}
+.metadata,.page,#document-form,.page-editor{background:#fdfcf9}
+input,#document-form textarea,.reader-bar select,.reader-controls button,.edit-actions button,.form-controls button,#add-page,.page-editor button,.page #toggle-scan{background:#fdfcf9;color:#252822}
+.nav a:hover,.records a:hover,.left-column ol a:hover,.left-column a[aria-current="page"],.left-column button:hover,.left-column button[aria-current="page"]{background:#e9e8e3}
+.page #toggle-scan{width:max-content;max-width:100%;margin:24px auto 0;padding:5px 10px;font-size:12px;line-height:1.4}
+.page-status{font-size:12px;font-weight:500;color:#555}
+</style>
+</head>
+<body>
+<header><a href="#">Tez Araştırması</a></header>
+<main>
+<section id="home">
+<h1>Araştırma kaynakları</h1>
+<nav aria-label="Araştırma bölümleri"><ul class="nav">
+<li><a href="#osmanli-arsivi">Belgeler: cumhurbaşkanlığı devlet arşivleri başkanlığı osmanlı arşivi</a></li>
+<li><a href="#uluslararasi-yayinlar">Belgeler: Uluslararası Ticaret ve Bilim Yayınları</a></li>
+<li><a href="#ikincil-literatur">İkincil Literatür</a></li>
+<li><a href="#belgelerdeki-kisiler">Belgelerdeki Kişiler</a></li>
+</ul></nav>
+</section>
+<section id="archive" hidden>
+<a class="back" href="#">← Ana sayfa</a>
+<h1 tabindex="-1">Osmanlı Arşivi</h1>
+<p class="subtitle">Cumhurbaşkanlığı Devlet Arşivleri Başkanlığı</p>
+<div id="search-wrap" hidden><label for="search">Arşiv kodu ara</label><input id="search" type="search" placeholder="Arşiv kodu" autocomplete="off"></div>
+<div class="list-head"><h2>Arşiv kodları</h2><span class="count" id="count"></span></div><div class="column-head"><span>Arşiv kodu</span><span>Tarih</span></div>
+<ul class="records" id="records"></ul>
+<p class="empty" id="archive-empty">Henüz belge eklenmedi.</p>
+</section>
+<section id="document" hidden>
+<div class="document-layout">
+  <aside class="left-column" aria-label="Belge gezinmesi"><div class="sticky-side">
+    <a class="back" href="#osmanli-arsivi">← Osmanlı Arşivi</a>
+    <nav aria-label="Arşiv belgeleri"><h2>Arşiv belgeleri</h2><ol id="document-list"></ol></nav>
+  </div></aside>
+  <div class="reading-column">
+    <h1 class="code" id="document-code" tabindex="-1"></h1>
+    <div class="metadata" id="metadata" aria-label="Belge bilgileri"></div>
+    <form id="document-form" hidden>
+      <label for="edit-code">Yer Bilgisi</label><input id="edit-code" required>
+      <label for="edit-institution">Kurum</label><input id="edit-institution">
+      <label for="edit-hijri">Hicri Tarih</label><input id="edit-hijri">
+      <label for="edit-gregorian">Miladi Tarih</label><input id="edit-gregorian">
+      <label for="edit-summary">Özet</label><textarea id="edit-summary" rows="4"></textarea>
+      <label for="edit-source-status">Görüntü durumu</label><input id="edit-source-status">
+      <label for="edit-pages">Sayfalar</label><div id="edit-pages"></div>
+      <button id="add-page" type="button">Sayfa ekle</button>
+      <div class="form-controls"><button type="submit">Kaydet</button><button id="cancel-edit" type="button">İptal</button></div>
+    </form>
+    <section id="reader" hidden aria-label="Belge sayfaları">
+      <div class="reader-bar"><span>Sayfalar</span><span id="page-status" class="page-status"></span><label for="page-select" class="sr-only">Sayfa seç</label><select id="page-select"></select></div>
+      <article class="page" aria-live="polite"><h2 id="page-title"></h2><div id="page-text" class="prose"></div><button id="toggle-scan" type="button" aria-expanded="false" hidden>Belge görüntüsünü aç</button><div id="scan-panel" hidden><a id="scan-link" target="_blank" rel="noopener"><img id="scan-image" alt="" loading="lazy"></a><p>Görüntüyü yeni sekmede büyütmek için tıklayın.</p></div></article>
+      <div class="reader-controls"><button id="previous-page" type="button">← Önceki</button><span id="page-count"></span><button id="next-page" type="button">Sonraki →</button></div>
+    </section>
+  </div>
+  <aside class="right-column" aria-label="Belge araçları"><div class="sticky-side">
+    <h2>Belge araçları</h2>
+    <div class="edit-actions"><button id="edit-document" type="button">Bu belgeyi düzenle</button><button id="download-changes" type="button">Değişiklikleri indir</button><span id="save-status" role="status"></span></div>
+    <p class="save-note">Düzenlemeler bu tarayıcıda saklanır. İndirilen dosya GitHub sitesini kendiliğinden güncellemez.</p>
+    <div id="document-body"></div>
+  </div></aside>
+</div>
+</section>
+<section id="other" hidden>
+<a class="back" href="#">← Ana sayfa</a><h1 id="other-title" tabindex="-1"></h1><p class="empty">Henüz içerik eklenmedi.</p>
+</section>
+</main>
+<script>
+// Add verified archival records here. Each entry has a unique id and an exact code.
+// Optional fields: date, title, summary, transcription, notes, files [{name,url}].
+const documents = [
+  {
+    "code": "BEO / 1491 - 111796 -",
+    "id": "belge-001",
+    "archiveCode": "BEO.1491-111796",
+    "institution": "Bab-ı Ali Evrak Odası",
+    "summary": "Madenlere ait hukuk-ı tasarrufiyenin haczi caiz olamayacağı dolayısıyla Hüdavendigar vilayeti İnegöl kazası Domaniç nahiyesi Kuzcifar ve Sarıot karyeleri civarında Sarıtahir nam mahalde olup ihale kılınmış olan üç kıta Kırom madeninin ahara ferağının menedilmesi. (Adliye, Orman ve Maadin)",
+    "gregorianDate": "24 Mayıs 1900",
+    "hijriDate": "24.01.1318",
+    "date": "24 Mayıs 1900 / H. 24.01.1318",
+    "files": [
+      {
+        "name": "Drive klasörü",
+        "url": "https://drive.google.com/drive/folders/1tCZMh59atFRH_o2vRLAT-JSlNIggvG0O?usp=sharing"
+      }
+    ],
+    "pages": [
+      {
+        "heading": "1. Sayfa",
+        "text": "Okumadım, iki sayfa yazı var.",
+        "scan": {
+          "id": "1vlT227ac-2g_oRzWw67R8O_vnGvEm6te",
+          "name": "BEO_001491_111796_001_001.jpg"
+        }
+      },
+      {
+        "heading": "2. Sayfa",
+        "text": "Okumadım, tarihler ve numaralar var.",
+        "scan": {
+          "id": "1Rf9ZREyQXJ_Fr-rdkvKvUS4tlSf1Dlqp",
+          "name": "BEO_001491_111796_001_002.jpg"
+        }
+      },
+      {
+        "heading": "3. Sayfa",
+        "text": "Üç satır not var, okumadım.",
+        "scan": {
+          "id": "1nqtr3JFFmIn25ZKu9tqnjL30QFuBCrSQ",
+          "name": "BEO_001491_111796_002_001.jpg"
+        }
+      },
+      {
+        "heading": "4. Sayfa",
+        "text": "Sağdaki sayfa\nOrman Meadin ve Ziraat Nezareti\n Mektubi Kalemi\n Aydın vilayeti (…) kazasında (…) üç yüz ve üç yüz bir seneleri bedel-i iltizamından hazine-yi celileye (…) ve mesarif-i muhakeme seksen altı bin yedi yüz doksan altı guruş (…) deyni olan (…) Kotari'nin Menteşe sancağı dahilinde Kozağacı'nda kain zımpara madeninin nısf imtiyazına mutasarrıf olduğu beyanıyla bunu âhire ferağa teşebbüs itdiği vakt hazineye malumat virilmeksizin icra-yı muamele tarafına gidilmemesi hakkında mukaddema maliye nezaret-i celilesinden nezaret-i 'aliyyelerine (...) olan 4 Mayıs sene (1)311 tarih ve altmış üç numerolu tezkire meadin heyet-i fenniyesince ve muhasebece görilüb keyfiyyeti kaydına işaret idildikten sonra (…) 'âcizanemize tevdi' buyurulmış (...) heyet-i fenniye riyasetinden zuhruna? yazılan derkenarda meadin mültezimlerinin hukuk-ı meadin nizamnamesinin altıncı ve ashab-ı matlubun hukuku dahi yedinci maddeleriyle taht-ı temine halde sarahat-ı nizamiyye haricinde bir maden imtiyazının haczine medar? olunacak bir ihbar ile mükellefiyetin mevadd-ı nizamiyyeye tatbiki yolunda ihbar ve (…) ne suret ve salahiyyetle telaki idilmesi ve ne vechle icra ve ifası lazım geleceği tayin idilemediğinden burası muhtac-ı teammul? idüği gösterilüb (…) icab-ı keyfiyyet derdest-i tezekkür iken Aydın vilayeti ve kaza zımpara madenlerinin sahib-i imtiyazı Ernest Abbott tarafından takdim olunan 29 Temmuz sene 311 tarihli arzuhalde merkum Mimiko? Kotari'nin? (…) zımpara madenindeki nısf imtiyaz hakkını 23 Ağustos? sene 310 tarihinde virdiği arzuhal mucebince kendisine devr ve ferağ itmiş ise de imtiyazı kendi uhdesinde bulunan vakf zımpara madenlerinden dolayı zuhura gelen bir ihtilaf-ı muamele-yi ferağiyye tehir-i icrasına sebeb olub mezkur ihtilaf ise (…) netice (…) bahsle muamele-yi mebhusanın? icrası istida idilmiş ve salifü'z-zikr Kozağacı zımpara madeni 21 Receb sene 95 tarihinde şeref-sadır olan ferman-ı 'âli mucebince Mimiko? Kotari? ve Manolaki İkonomidi uhdelerine ihale kılındığı ve Manolaki bi'l-cümle hukukunu İngiltere devlet-i fehimesi tebasından Mösyö Edvar'a bey' ve ferağ idüb Mimiko Kotari'nin ise baz-ı ifadeyi havi olmaya takdim eylediği arzuhalin meadin heyet-i fenniyyesine tevdi' olunduğu muhasebeden mezkur 23 Ağustos sene 310 tarihlü arzuhalde yazılan 1 Eylül? 310 tarihli derkenarda ifade kılınmış olmakdan naşi 28 Ağustos 311 tarihiyle takdim idilen mazbata-yı 'âcizanemizde meadin nizamnamesinin 6. maddesinde meadin imali içün daimi suretde bir yerde kalmak üzere vaz' ve inşa olunan makine ve ebniye ve kuyu ve ocak ve inşaat saire ile mağaralar derununda istimal olunan (…) maden ihracı ve nakl ve (…) içün must'amel kaffe-yi alât ve edevat ve bir senelik levazımatın timurbaş 'add idileceği ve bunların deyn mukabilinde hacz ve füruhtu haiz olamayacağı 》 ve yedinci maddesinde ise maden imali zımnında istimal olunan sair eşya ve ihrac idilen mevadd-ı madeniyye ve sermaye hisseleriyle (…) eşya-yı menkuleden idüğü 》muharrer olması istida idilen muamele-yi ferağiyyenin bilâ hükm tehir-i icrâsında ve asıl? madene ve imtiyaza olan hakk-ı tasarrufun menkulat sırasında? 'add idilüb de deyn içün haczi caiz olub olmadığında tereddüdü istilzam eylediğinden ve mamafih müsted'î sızlanmakda? bulunduğu cihetle muamele-yi ferağiyyenin tehiri yoluna gidilemeyeceği şayed asl maden ve imtiyaza taalluk iden hakk-ı tasarrufun haczi caiz olacağına dair (…) emr ve karar var ise (…) lüzumunun (…) arz olunan 4 Mayıs sene 311 tarihli tezkireye cevaben nezaret-i ?-ye (…) lüzumu arz ve beyan idilmiş ve ol vechle tezkire-yi aliyye-yi nezaret-penahileri yazıldığı gibi teahhur-ı vâkı'aın? bi'l-ahire bais olacağı zarar ve ziyandan tolayı nezaret-i aliyyelerinin mesul kalacağı beyanıyla ve 30 Ağustos sene 311 tarihiyle mumaileyh Mösyö Ernest Abbott tarafından takdim kılınan arzuhal dahi 20 Eylül? sene 311 tarihli mazbata-yı 'âcizanemiz üzerine bir tezkere nezaret-i (…)-ye gönderilerek cevab-ı muntazır tekid ve istimal buyurulmışdı.\n7 ve 16 Teşrin-i Evvel sene 311 tarih ve iki yüz yirmi sekiz ve iki yüz otuz dört? numerosuyla nezaret-i müşa-(…)-den mütevarid? 2 kıta tezkire-yi cevabiyyenin bi3incisinde vâkı'â? altıncı madde-yi nizamiyyede muharrer emval ve eşya kabil-i hacz olmayub hazine-yi celilede bunların hacz ve tevkifi taleb ve işarında? bulundığından ve asl? hacz idilen şey beşinci madde mucebince âhire füruht ve tevarisi? caiz olan ve yedinci madde mucebince sermaye hissesinden ibaret bulunan hisse olub bunun hacz ve füruhtu haiz olacağının tabî'i? göründüğü cihetle hazinenin sahib-i hissedeki alacağı içün hisse-yi mezkureyi hacz ve tevkife salahiyyeti (…) olduğu ve şayed (…) merkumun mahalince hacz idildiği başkaca beyan ve ihbar olunan emval ve emlakı ika-yı? deyne kafi ise hisse-yi mezkure hakkında hacze mahal olmadığından bu cihet mahalinde sorılub? alınacak üzerine hazinece hacz-i resmîye teşebbüs veya muamele-yi füruhtun icrasına muvafakat gösterilmek mukarrer bulundığı (…) Mösyö Abbot'un henüz (…) hakk-ı tasarrufu haiz olmamış iken sahibinin uhdesinden istikaline? muvafakat idilmesinin kendüsine tokunur ciheti olmadığı ve ikincisinde Aydın defterdarlığından alınan telgrafname-yi cevabiyyeye göre Mimiko Kotari'nin keyfiyyetinin satılan ve mahcuz olan emvalin ve arazisinin? bedelatı zımnından mahsub idildikten sonra yüz on beş bin guruş açık kalacağı ve bunun mahal-i tahsili bulunduğu anlaşıldığından ve mezkur zımpara madenindeki nısf hissesinin hacz ve füruhtunun hükm-i nizam müsaid görünüb hisse-yi mebhuse? ile nizamnamenin yedinci maddesinde gösterilen emvalde merkumun Mimiko Kotari'ye aid olanların hacz ve füruhtu zımnında iktiza iden hacznamelerin mahkeme marifetiyle nezaret-i 'aliyyelerine ve kendüsine tebliğ edilmesi lüzumu mahalinde tebliğ kılındığından tebligat-ı resmiyyenin vukû'una değin hisse-yi mezkure hakkında (…) âhire bey' ve intikal-i muamelesinin icra itdirilmesi tarafına gidilmemesi işar ve beyan olunmışdır.\nMimiko Kotari'nin baz-ı ifadeyi havi takdim isüb heyer-i fenniyyeye tevdi kılınsığı muhasebenin (...) zikr olunan 11 Eylül? sene 310 tarihli derkenarında muharrer arzuhal 23 (...) sene 310? tarihli olub şeriki Manolaki İkonomidi'yle hisseden tolayı vukû'a gelen ihtilafın hali istidasına dair bulunmasıyla anın zat? maddeye? cihet taalluku olmadığı ve fakat 23 Ağustos sene 310 tarihli olan arzuhalinde mezkur Kozağacı zımpara madenindeki nısf hisseyi Mösyö Ernest Abbott'a devr ve ferağ eylediğinden muamele-yi lazımenin icrasını istida itdiği lede't-tedkik anlaşılub iktizası (…) ve mütalaa olundukda a'zâdan saadetlü Ziya ve Nazif Beyefendiler hazrâtı? hazine-yi celile alacaklı mud'i? bulundığı cihetle toğrıdan toğrıya (…) binaen meadin nizamnamesinin ahkam ?-ce/ca ve nezaret-i müşa-? mukâmenin? tezkire-yi ahîresinde nizamname-yi mezkurun yedinci maddesinde gösterilen emvalden merkum Mimiko Kotari'ye aid olanlarının taht-ı hacze aldırılacağı gösterilmesine karşu muamele-yi ferağiyyenin tehir-i icrasına mahal kalmadığı reyini dermeyan iderek (…) bu babdan takdim kılınan (…) 28 Ağustos sene 311\nSoldaki sayfa\ntarihli mazbata-yı 'acizanemizde dahi arz olduğu vechle (…) madene ve imtiyaza olan hakk-ı tasarrufun menkulât (…) 'add idilüb deyn içün haczi caiz olub olmadığına tereddüd idilmiş mamaafih nezaret-i (…) ilk tezkiresinde gösterilen beşinci maddede müddet-i ihale zarfında madenler âhire füruht olunur ve varis tarikleriyle âhire devr ve intikal dahi ider deyü (…) olan fıkralar ahkam-ı haricesinin istifa-yı deyn yolunda istimaline münasebet (…) edinci madde-yi nizamiyyede muharrer sermaye hisselerinde (...) 'add idilen ve deyn içün hacz ve füruhtu haiz olmayan şeylere zımni bir suretde teşmiline mahal görinememiş ise de canib-i hazine-yi celileden vukû' bulan böyle bir ihtara karşu istida-yı (…) birdenbire (…) muamele (…) hal ve maslahata muvafık görünemediğinden ve zaten Tatyos Masihyan namında birinin istikraz eylediği meblağ mukabilinde Nikola ? Efendi'ye vefa-yı ferağ itdiği üç kıta krom madeninin meblağ-ı müstakraz (…) tediyeye (…) bulunduğu beyanıyla madenin Nikola Efendi tarafından âhire füruhtuna meydan virilmemesi hakkında mümaileyh Tatyos Masihyan Efendi'nin virdiği hacz istidanamesi üzerine Dersaadet İkinci Mahkeme-yi Ticaret'inden nezaret-i aliyyelerine (…) iden tebligatın hükm-i nizama karşu ne yolda telakki olunması ve ne vechle muamele idilmesi lazım geleceği 9 Mart (1)311 tarih ve sekiz numerolu tezkireyle makam-ı fehamet-i ittisam-ı sadaret-penahiden (…) buyurulub elan bir emr-i cevabı şeref-zuhur itmediğinden ve hazine-yi celileye (…) olan bu makule madenlerin (…) iden bu misillü ârızalardan tolayı imalatı ta'tile uğrayub (…) varidata nakisa geldiğinden bir vech maruz ba-ferman-ı 'âli işledilmekde bulunan bir madene 'â'id hukuk-ı tasarrufiyenin istifa-yı deyn içün hacz ve füruhtu haiz olub olmadığına dair mezkur beşinci ve altıncı ve yedinci maddelerin ahkamını tefsiren bir emr-i sarih ita buyurulmasının tekrsr bab-ı 'âli canib-i samisine arz (…) buyurulması hususuna (…) karar virildi olbabda emr ü ferman hazret-i men-lehü'l-emrindir\nFi 20 cemaziyelahire sene 313 ve fi 20 teşrin-i evvel sene 311\nBaşmühendis | meadin heyet-i fenniyyesi reisi | muhasebeci | orman heyet-i fenniyyesi reisi | orman ve meadin ve ziraat nezareti muavini\n(kırmızı yazıyla) mucebince (…)",
+        "scan": {
+          "id": "1SDo3z5eF6WW-PKNc_35pecM4yQzrXsZF",
+          "name": "BEO_001491_111796_002_002.jpg"
+        }
+      },
+      {
+        "heading": "5. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1m408x_G5P4NnUNcYb5eirWfn2hEA8mns",
+          "name": "BEO_001491_111796_002_003.jpg"
+        }
+      },
+      {
+        "heading": "6. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1-Ixi2KBtOQl0dIO0nRZiVk3fm0x7l4sj",
+          "name": "BEO_001491_111796_003_001.jpg"
+        }
+      },
+      {
+        "heading": "7. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1GX7F3yzmEcgn_aQ8MowlIv15pOPkO2e1",
+          "name": "BEO_001491_111796_003_002.jpg"
+        }
+      },
+      {
+        "heading": "8. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1m9C-_Dwb_8n7sSedDEQwS9MBuYftWjZE",
+          "name": "BEO_001491_111796_003_003.jpg"
+        }
+      },
+      {
+        "heading": "9. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "19ctAcIepyg92F3nhCC2QaZwQOxedbPy1",
+          "name": "BEO_001491_111796_004_001.jpg"
+        }
+      },
+      {
+        "heading": "10. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "10mGzTVM4_u88R9B-Hdur2dIEIETFbViq",
+          "name": "BEO_001491_111796_004_002.jpg"
+        }
+      },
+      {
+        "heading": "11. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1fOy8jSjmJ4U8c6HnnGrL5mnGt9mWFbs5",
+          "name": "BEO_001491_111796_005_001.jpg"
+        }
+      },
+      {
+        "heading": "12. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1HybnhStxp5OHP-9E1gdr4PQToSZaWsy-",
+          "name": "BEO_001491_111796_005_002.jpg"
+        }
+      },
+      {
+        "heading": "13. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1i6WdeS0TVUEtqin8oIwNNgHowO3eP2NG",
+          "name": "BEO_001491_111796_006_001.jpg"
+        }
+      },
+      {
+        "heading": "14. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1mX11K24-jeDMICCpgOJm5n3aWUEgYqiZ",
+          "name": "BEO_001491_111796_007_001.jpg"
+        }
+      },
+      {
+        "heading": "15. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1eS35s8ygpbGYkzo8kiqRMaKicgbNaVsK",
+          "name": "BEO_001491_111796_007_002.jpg"
+        }
+      },
+      {
+        "heading": "16. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1vLwv398j0RQyJ5Hgiu7qoJWXmwx3vAR3",
+          "name": "BEO_001491_111796_008_001.jpg"
+        }
+      },
+      {
+        "heading": "17. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1y3ZKBpI7VCVFLxug60hiNMePesX-M1Gk",
+          "name": "BEO_001491_111796_008_002.jpg"
+        }
+      },
+      {
+        "heading": "18. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1OCMesMGHRvPvr_ZARy-Hk5matcBFWAc3",
+          "name": "BEO_001491_111796_009_001.jpg"
+        }
+      },
+      {
+        "heading": "19. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "14UMHxfL9TMxlV246gFnolOcMVmwHsUw1",
+          "name": "BEO_001491_111796_009_002.jpg"
+        }
+      },
+      {
+        "heading": "20. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1Ngk6E6vO2hc4lm4NZXUynygQZLMmhXLr",
+          "name": "BEO_001491_111796_010_001.jpg"
+        }
+      },
+      {
+        "heading": "21. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "19I5BZ4dGKWNzLKHOO0FfAw6ZERruA0BC",
+          "name": "BEO_001491_111796_010_002.jpg"
+        }
+      },
+      {
+        "heading": "22. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1avp6cscOOoE2-mKXbaBd4EQlOvHHM-KY",
+          "name": "BEO_001491_111796_011_001.jpg"
+        }
+      },
+      {
+        "heading": "23. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1-OW4rs_8tKJQjqdwyUqioBD1vlIEkOmy",
+          "name": "BEO_001491_111796_012_001.jpg"
+        }
+      },
+      {
+        "heading": "24. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1WKx6y6JwqZIJ1YvyUSpsHeQsSw0wo2HH",
+          "name": "BEO_001491_111796_012_002.jpg"
+        }
+      },
+      {
+        "heading": "25. Sayfa",
+        "text": "",
+        "scan": {
+          "id": "1opFe0YIF3KsErlc7XbEVxqAdUQ7wpHyn",
+          "name": "BEO_001491_111796_013_001.jpg"
+        }
+      }
+    ]
+  },
+  {
+    "code": "Y..MTV. / 222 - 65 -",
+    "id": "belge-002"
+  },
+  {
+    "code": "İ..HR.. / 392 - 17 -",
+    "id": "belge-003"
+  },
+  {
+    "code": "BEO / 2463 - 184702 -",
+    "id": "belge-004"
+  },
+  {
+    "code": "BEO / 2513 - 188420 -",
+    "id": "belge-005"
+  },
+  {
+    "code": "BEO / 2523 - 189181 -",
+    "id": "belge-006"
+  },
+  {
+    "code": "BEO / 2548 - 191052 -",
+    "id": "belge-007"
+  },
+  {
+    "code": "HRT.h.. / 2304 - -",
+    "id": "belge-008"
+  },
+  {
+    "code": "HRT.h.. / 2304 - -",
+    "id": "belge-009"
+  },
+  {
+    "code": "İ..MMS. / 138 - 30 -",
+    "id": "belge-010"
+  },
+  {
+    "code": "HR.HMŞ.İŞO. / 184 - 21 -",
+    "id": "belge-011",
+    "date": "1 Temmuz 1900 / H. 03.03.1318",
+    "location": "Hariciye Nezareti Hukuk Müşavirliği İstişare Odası – HR.HMŞ.İŞO.184-21",
+    "summary": "Brusa Vilayeti dahilinde İnegol Kazası'na tabi Domaniç'in Korcgaz ve Sarıtaş isimli yerlerindeki bakır madeni imtiyazına mutasarrıf müteveffa Tatyos'un terekesiyle ilgili mahkeme yazışmaları.",
+    "files": [
+      {
+        "name": "Drive klasörü",
+        "url": "https://drive.google.com/drive/folders/1pQxS-63iHMmoXIvFD_u8ImIgsBI-tyb4?usp=sharing"
+      }
+    ],
+    "pages": [
+      {
+        "heading": "1. Sayfa",
+        "text": "Kaiserlich Deutsches\n General-Konsulat\nFransızca el yazısı\nBei Beantwortung wird um Angabe der J.-No. 5221 ersucht.",
+        "scan": {
+          "name": "HR_HMS_ISO__00184_00021_001_001.jpg",
+          "id": "1jRxxeEFyitHi68w-ek0xRPPFFghCznxI"
+        }
+      },
+      {
+        "heading": "2. Sayfa",
+        "text": "(Suret)\nBrusa vilayeti dahilinde İnegöl kazasına tabi Domaniç nahiyesinin Kozcağız ve Sarıtaş nam mahalde bir muceb harita mevcud krom madeni imtiyazına ba-ferman-ı alişan mutasarrıfı olan müteveffa Tatyos Masihyan’ın iki kıta hüccet-i mucebi bin iki yüz lira-yı Osmanî deyni olub mümaileyhin vefatıyla terekesine vaz’el-yed varis bulunan Beyoğlu’nda telgraf zükağında hanelerinde sakin olub (...) ikamet itmekde bulunan (...)-hanende sakin teba’a-yı devlet-i aliyyeden Simyon Masihyan mezkur matlubatın tesviyesini taahhüd eylediği halde el-yevm tahsiline muvaffak olamadığımdan maden-i mezkur imtiyazı ise müteveffa Masihyan’ın hayatında Alman devleti teba’asından altıncı daire karşusunda 20 numerolu apartmanda mukim tüccardan Mösyö Charles Reiser namına muvaza’a suretiyle geçirilmiş keyfiyyet-i muvaza’a dahi Birinci Ticaret Mahkeme-yi Aliyyesi sebk iden kararıyla icra idilmiş olmağla matalib mahbure?-yi acizanemin temini zımnında bir (...) ma’ruz hakikatde M Matyos (sic) Masihyan terekesine aid olub muvaza’aen Mösyö Charles Reiser namında mukayyed bulunan mezkur krom madeni cevherinin hacze mecburiyyet hâsıl olub gerek imtiyaz gerek cevahir-i mezkurenin kendüsince ferağ veya füruhtu icab eylediğinden bedel-i akçesi mahkeme veznesine dipozito idilmedikce icra-yı muamele idilememesi zımnında işbu hacznamenin varis müteahhid merkum Simyon’a bir nüshasının zilyed mümaleyh Mösyö Charles Reiser’e bir nüshasının Meadin Nezaret-i Celilesi’ne bir nüshasının İzmid kazasına tebliğine karar virilüb keyfiyyetin icra memuriyyetine (...)-esini istida eylerim olbabda emr ü irade efendim hazretlerinindir\nFi 31 Temmuz sene 312\nHristo Maccridi’nin (...) vekili Galata’da Büyük (...)hanende \n 34 numerolu otada mukim\n dava vekilleriden? Doktor\n Kıtami? Alora?\nFransızca el yazısı",
+        "scan": {
+          "name": "HR_HMS_ISO__00184_00021_001_002.jpg",
+          "id": "1Ym2eq9ILKSsqjDLO9SIUfwzedd4DZ2So"
+        }
+      },
+      {
+        "heading": "3. Sayfa",
+        "text": "Okumadım, üç satır not var",
+        "scan": {
+          "name": "HR_HMS_ISO__00184_00021_002_001.jpg",
+          "id": "1vucnWemEahWfY0_fgyR7RFNff0Mg4a8H"
+        }
+      },
+      {
+        "heading": "4. Sayfa",
+        "text": "Üstte yan duran yazı\nNumero\n 1914\n İşbu hacizname ve zîrde muharrerin oğlu Bidayet Mahkemesi Birinci Hukuk Dairesi kararı hıfz idilen nüshası (...) muvafık olmağla tasdik olunarak bir muceb karar-ı haczin icrası zımnında icab iden mahallere keyfiyyet bildirilmş oldığı gibi bu dahi Almanya devleti teba’asından Mösyö Charles Reiser’e tebliğ itdirilmek üzere umur-ı hukukiyye (...) müdirriyet-i aliyyesine\n 7 (...) 312\nAsıl yazı\nMüstedî-yi hacz mümaileyh tarafından ibraz ile ile (sic) bade’l-mütalaa iade kılınan iki kıta hüccet-i şeriyye mantukunca bin iki yüz aded Osmanlı lirası mütehacciz Simyon Masihyan’ın murisi Tatyos Masihyan zimmetinde hâciz Hristo Makridi’nin alacağı bulunduğu anlaşılub fakat haczi taleb olunan Sarıtaş krom madeni imtiyazının (…) müteveffanın hâl-i hayatında Almanya devleti teba’asından ve tüccardan Mösyö Charles Reiser uhdesinde uhdesinde (sic) emaneten mukayyed idüği evrakı meyanında? mevcud mümaileyh Mösyö Reiser ifası tahtında tercümesi musaddık bir kıta mukavelenamenin hatımesinde maden-i mezburun işletme umurını idare itmek üzere müteveffa Tatyos Masihyan tarafından isticar idilen Mösyö Arastide ‘be’ üç ayda itası meşrut elli bir lira ücretin müsteciri namına şahs-ı salis Mösyö Reiser tarafından tesviye olması ve 26/523 numerolu diğer evrakda keza mevcud bir ihtarnamede Mösyö Reiser’in müteveffa Tatyos Masihyan’ın 28 Ağustos 311 tarihli vekaletname-yi\n musaddık ile vekil-i umumiyyesi bulunduğu muharrer olarak şu suretler? Mösyö Reiser’in maden-i mezburda müteveffa Tatyos Masihyan namına ifa-yı muameleye tevkil idileyiğini? delail-i kanuniyyeden madud (…) delaile binaen (…) ifası kanunen caiz bulunmasına ve ibraz idilen kefaletname\n dahi icra-yı hacze kafi görülmesine mübni? müteveffanın ba-ferman-ı alişan taht-ı tasarrufunda olub vefatıyla mütehacciz Simyon Masihyan’a aidiyeti anlaşılan Hüdavendigar vilayeti dahilinde İnegöl kazası nevahisinden Kozcağız ve Sarıot nam mahalde kain Karasuboğazı ve Sarıtaş krom madeniyle maden-i mezburdan bi’l-ihrac İzmid ve Derince istasyonlarına tenzil idilen bin beş yüz ton krom cevherinin matlubat-ı mezburenin temin-i istifası zımnında bedelleri resmen depozito idildikce icra-yı muamele idilememek üzere Beyoğlu Bidayet Mahkemesi mukavelat (…) vasıtasıyla taht-ı hacze alınmasına ve işbu karar içün altun olarak yüz gruş harc istifasına 9 Rebiü’l-evvel sene 314 ve 16 Ağustos sene 312 tarihinde müttefikan karar virilmişdir?\nBeyoğlu Bidayet Mahkemesi Birinci Hukuk Dairesi",
+        "scan": {
+          "name": "HR_HMS_ISO__00184_00021_002_002.jpg",
+          "id": "1H6oy0ZrTLi2kEu6kBkTyMCpaNePEuTTc"
+        }
+      },
+      {
+        "heading": "5. Sayfa",
+        "text": "Beyoğlu Bidayet Mahkemesi Birinci Hukuk Dairesi Riyaset-i Aliyyesine \nSaadetlü efendim hazretleri\nBursa vilayeti dahilinde İnegöl kazasına tabi kazasına tabi Domaniç nahiyesinin Kozcağız ve Sarıtaş nam mahalde bir muceb harita mevcud krom madeni imtiyazına ba-ferman-ı ‘âlişan mutasarrıfı olan müteveffa Tatyos Masihyan’ın iki kıta hüccet-i mucebince bin iki yüz lira-yı ‘Osmanî deyni olub mümaileyhin vefatıyla terekesine vaz'ül-yed varis bulunan oğlundan telgraf zükağında hanelerinde sakin olub muvakkaten ikamet itmekde bulunan (...) (...)-hanesinde (...) devlet-i aliyye Simyon Masihyan mezkur matlubatımın tesviyesini taahhüd itdiği halde el-yevm tahsiline muvaffak olamadığımdan maden-i mezkur imtiyazı ise müteveffa Masihyan’ın hâl-i hayatında Alman devleti tebaasından altıncı daire karşusunda yigirmi numerolu apartmanda mukim tüccardan Mösyö Charles Reiser namına muvaza’a suretiyle geçürilmiş keyfiyyet muvaza’a dahi Birinci Mahkeme-yi Ticaret-i Aliyyesi (...) iden kararıyla icra idilmiş olmağla metalib-i mezbure-yi acizanemin temini zımnında (...) hakikatde Tatyos Masihyan terekesine aid olub muvaza’a-yı Mösyö Charles Reiser namında mukayyed bulunan mezkur krom madeni imtiyazının maden-i mezkur (...) olub İzmid ve Derince iskelelerine tenzil (...) bin beş yüz tonu mikdarı krom madeni cevherinin hacze mecburiyyet hasıl olub gerek imtiyaz gerek cevahir-i mezkurenin kendüsince ferağ veya füruhtu icab eylediğinde bedel-i akçesi mahkeme veznesine (...) idilmedikçe icra-yı muamele idilememesi zımnında işbu hacznamenin varis-i müteahhid Simyon’a bir nüshasının zi’l-yed mümaileyh Mösyö Charles Reiser’e bir nüshasının meadin nezaret-i celilesine bir nüshasının İzmid kazası Bidayet Mahkemesi canib-i alilerine tebliğine karar virilüb keyfiyyetin icra-yı memuriyyetine (...)-sını istimâ’en (...) ol babda emr ü irade efendim hazretleriniz\n21 Temmuz Sene 312\n(…) Maccridi’nin (…) 24 Numerolu otada mukim (…)-lerinden",
+        "scan": {
+          "name": "HR_HMS_ISO__00184_00021_003_001.jpg",
+          "id": "1J9G_Jb7oFfObEUH7qOvtY9xlUwyMsREH"
+        }
+      },
+      {
+        "heading": "6. Sayfa",
+        "text": "Müstedî hacz mümaileyh tarafına ibraz ile bade’l-mütala’a iade kılınan iki kıta hüccet-i şeriyye mantukunca bin iki yüz aded Osmanlı lirası mütehacciz Simyon Masihyan’ın mûrisi Tatyos Masihyan zimmetinde hâciz Hristo Makridi’nin alacağı bulundığı anlaşılub fakat haczi taleb olan Sarıtaş krom madeni imtiyazının (...) mütevaffanın hâl-i hayatında Almanya devleti teba’asından ve tüccardan Mösyö Charles Reiser uhdesinde emaneten mukayyed idüğü oratı? meyanında? mevcud mümaileyh Mösyö Reiser \nmukavelenamenin hatımesinde maden-i mezburun işletilme umurını idare itmek üzere müteveffa Tatyos Masihyan tarafından isticar idilen Mösyö Arastidi’ye? -be- üç ayda itası meşrut elli bir lira ücretin müsteciri namına şahs-ı salis Mösyö Reiser tarafından tesviye kılınmış olması ve 26/523 numerolu diger evrakda keza mevcud ihtarnamede Mösyö Reiser’in müteveffa Tatyos Masihyan’ın 28 Ağustos sene 311 tarihli vekaletname-yi maden? (...) umumiyyesi bulundığı muharrer olarak şu? suretler? Mösyö Reiser’in maden-i mezbure müteveffa Tatyos Masihyan namına ifa-yı muamele ? idüğü delail-i kanuniyyeden madud ve bunca delaile binaen hacz ifası kanunen haiz bulunmasına ve ibraz idilen vekaletname? dahi icra-yı hacze kafi görülmesine mebna? müteveffanın ba-ferman-ı alişan taht-ı tasarruf olub vefatıyla mütehacciz Simyon Masihyan’a aidiyyeti anlaşılan Hüdavendigar vilayeti dahilinde İnegöl kazası nevahisinden Kozcağız ve Sarıot nam mahalde kain ve Karasu Boğazı ve Sarıtaş krom madeniyle maden-i mezbureden bi’l-ihrac İzmid ve Derince istasyonlarına tenzil idilen bin beş yüz ton krom cevherinin matlubat-ı mezburenin temin-i istifası zımnında bedelleri resmen dipozito idildikce icra-yı muamele idilememek üzere Beyoğlu Bidayet Mahkemesi mukavelat-ı? muharrer yeni vasıtasıyla taht-ı hacze alınmasına ve işbu krar içün altun olarak yüz (...) harc istifasına 9 rebiü’l-evvel sene 314 ve 6 Ağustos sene 312 tarihinde muttefiken karar virilüb?\n \nBeyoğlu Bidayet Mahkemesi\nBirinci Hukuk Dairesi",
+        "scan": {
+          "name": "HR_HMS_ISO__00184_00021_003_002.jpg",
+          "id": "1f7QHCIGn1faTLrIMwugmX2Ff1tRROrL3"
+        }
+      },
+      {
+        "heading": "7. Sayfa",
+        "text": "Saadetlü Efendim Hazretleri\n \nBrusa vilayeti dahilinde İnegöl kazasına tabi Domaniç nahiyesinin Kozcağız ve Sarıtaş nam mahalde bir muceb harita mevcud krom madeni imtiyazına ba-ferman-ı alişan mutasarrıfı olan müteveffa Tatyos Masihyan’ın âcizlerine hukuk(…) muhafaza itmekde olduğu (…) kontratu senedim ma’ada resmi ve gayr-ı resmi senedat mucebince bin üç yüz aded lira-yı Osmani deyni olub mümaileyhin (…) terekesine (…) el-yed (…) bulunan Üsküdar karyelerinden Kandilli’de Belasanathanende? sakin tebaa-yı devlet-i aliyyeden Simyon Masihyan mezkur matlubatımın tesviyesini taahhüt ettiği halde el-yevm tahsiline muvaffık olamadığımdan maden-i mezkur imtiyazı ise müteveffa Masihyan’ın hayatında Almanya devleti tebaasından (…) Caddesinde (…) hanında bir numerolu odada mukim tüccardan Mösyö Charles Reiser namına muvaza’a suretiyle geçürilmiş keyfiyyet-i muvaza’a dahi Mahkeme-yi Ticaret’in sebk iden kararıyla icra idilmiş olmağla (…) mezbure-yi âcizanemin temini zımnında bir vech-i maruz-ı hakikatden Tatyos Masihyan terekesine aid olub (…) Mösyö Charles Reiser namında mukayyed bulunan mezkur krom madeni imtiyazıyla maden-i mezkurdan (…) olub Bozüyük istasyonune kısmen dahi Derince iskelesine tenzil idilmiş ve idilecek bin beş yüz tonu mikdara krom madeni cevheriyyeti hacze mecburiyyet hasıl olub gerek imtiyaz gerek (…) mezkurenin kendüsince ferağ (…) icab eylediğinde bedel-i akçesi mahkeme veznesine tepozito idilmedikçe icra-yı muamele idilemememesi zımnında işbu haciznamenin bir nüshasının varis (…) merkum Simyon’a bir nüshasının zi’l-(…) mümaileyh Mösyö Charles Reiser’e bir nüshasının Meadin Nezaret-i Celilesine bir nüshasının İzmid bir nüshasının dahi (…) kazası Bidayet Mahkemesi canib-i aliyyelerine tebliğine karar virilüb keyfiyyetin icra-yı memuriyetine (…) istida eylerim\nFi 30 Temmuz sene 312\nBalıkpazarı’nda Arslan Hanı’nda (…) numerolu odada mukim tüccardan Botozaki? Kocayan?\nAyrıca Fransızca el yazılarıı",
+        "scan": {
+          "name": "HR_HMS_ISO__00184_00021_004_001.jpg",
+          "id": "1CFsv7LvZBNo5CQ_7E8hLgqSYzrAlCcWf"
+        }
+      },
+      {
+        "heading": "8. Sayfa",
+        "text": "(sağda dik yazı)\nnumero 1914\nİşbu haczname ve (…) mhuarrer Beyoğlu Bidayet Mahkemesi Birinci Hukuk Dairesi kararı (…) olunarak (…) icrası zımnında icab iden mahallere tebligat-ı lazıme (…) bu dahi Almanya devleti tebaasından Mösyö Charles Reiser’e (…) tebliğ (…) üzere (…) kalemi (…) Fi 7 Ağğustos sene 312\n1913    nun 1913\nFi 7 Ağustos sene 312\n(…)\n(…)\n(düz yazı)\n2848\n(…) sene 312\nMüsted'î-yi hacz mümaileyh tarafından ibraz idilüb bade'l-mütalaa iade kılınan iki kıta hüccet-i şeriyye mantukunca bin ve başkaca iki kıta senedle ? üç yüz ki cem'an bin üç yüz lira-yı osmani mütehacciz Simyon Masihyan'ın murisi Tatyos Masihyan zimmetinde hâciz Bedosaki'nin alacağı bulundığı anlaşılub haczi taleb olunan Sarıtaş krom madeni imtiyazının dahi medyun? müteveffanın hayatında Almanya devleti tebaasından ve tüccardan Mösyö Charkes Reiser'in uhdesinde emaneten mukayyed idüğü dahi 26/519 numerolu dosyada (…) mümaileyh Mösyö Reiser (…) tahtında (…) musaddak (…) mukavelenamenin hatımesinde maden mezburun işletme umurunı idare itmek (…) müteveffa Masihyan Tatyos tarafından isticar idilen Mösyö Aristis’e üç ayda itası (…) elli bir ücretde müsteciri namına (…) Mösyö Reiser taraf-(…) tesviye kılınmış olması ve hâciz Bedosaki’ninibraz eylediği (…) ihtarnamede Mösyö Reiser’in müteveffa Tatyos Masihyan’ın 28 (…) sene 311 tarihli vekaletname-yi musaddak ile (…) umumiyyesi bulunduğu? muharrer olması delaletiyle anlaşılub şu suretle Mösyö Reiser’in maden mezburda müteveffa Tatyos Masihyan namına ifa-yı muameleye tevkil idile(…) delail-i kanuniyyeden madud ve (…) delaile binaen hacz-i ifası kanunen ocaiz olmasına ve ibraz idilen kefaletname dahi icra-yı haczde kafi görülmeine (…) ba-ferman-ı alişan taht-ı tasarrufunda olub (…) mütehacciz Simyon Masihyan’a aidiyyeti anlaşılan Hüdavendigar vilayeti dahilinde İnegöl kazası nevahisinden Kozcağız ve Sarıot nam mahalde kain (…) Karasuboğazı ve Sarıtaş ve krom madeniyle maden-i mezburdan (…) Bozüyük istasyonuna ve Derince iskelesine tenzil itdirilen bin beş yüz ton krom cevherinin matlubat (…) istifası zımnında bedelleri resmen dipozito idilmedikçe icra-yı muamele idilmemek (…) Beyoğlu Bidayet Mahkemesi mukavelat muharrerliği? vasıtasıyla taht-ı (..) alınmasına ve işbu karar içün altundan olarak yüz guruş harc istifasına 9 Rebiü’l-evvel sene 3124 ve 6 Ağustos sene 312 tarihinde ba-(…) karar virilüb\nBeyoğlu Bidayet Mahkemesi Birinci Hukuk Dairesi",
+        "scan": {
+          "name": "HR_HMS_ISO__00184_00021_004_002.jpg",
+          "id": "1iz_kw-y6MXRSufqSCPzqhMAZ_LVRZ4mZ"
+        }
+      },
+      {
+        "heading": "9. Sayfa",
+        "text": "Beyoğlu Bidayet Birinci Hukuk Mahkemesi Riyaset-i Aliyesine\nBrusa vilayeti dahilinde İnegöl kazasına tabi Domaniç nahiyesinin Kozcağız ve Sarıtaş nam mahalde bir muceb harita mevcud krom madeni imtiyazına ba-ferman-ı alişan mutasarrıfı olan müteveffa Tatyos Masihyan'ın ? hukukumu muhafaza itmekde oldığım cevher kontratundan mâ'ada resmi ve gayr-ı resmi senedat mucebi bin üç yüz aded lira-yı osmani deyni olub mümaileyhin vefatıyla terekesine? vaze'l-yed varisi bulunan Üsküdar karyelerinden Kandilli'de bila-sanat-hanedesinde? sakin tebaen devlet-i aliyyeden Simyon Masihyan mezkur matlubatımın tesviyesini taahhüd eylediği? halde el-yevm tahsiline muvaffak olamadığımdan maden-i mezkur imtiyaz(ı?) ise müteveffa Masihyan'ın hayatında Almanya devleti tebaından ? caddesinde? Agobyan hanında bir numerolu odada mukim tüccardan Mösyö Charles Reiser namına muvaza'a ? geçirilmiş keyfiyyet muvaza'a dahi mahkeme-yi ticaretin sebk iden kararıyla icra idilmiş olmağla mutalib mezbure-yi acizanemin temini zımnında bir vech maruz-ı hakikatde Tatyos Masihyan terekesine aid olub muvazaaen Mösyö Charles Reiser'in namında mukayyed bulunan mezkur krom madeni imtiyazıyla maden-i mezkurdan muhaccez? olub Bozüyük istasyonuna (...) dahi Derince iskelesine tenzil idilen ve idilecek bin beş yüz tonu mikdarı krom madeni cevherini hacze mecburiyyet hasıl olub gerek imtiyaz gerek cevahir-i mezkurenin kendüsince ferağ veya füruhtı icab idildiğinden bedel-i akçesi mahkeme veznesine (...) idilmedikce icra-yı muamele idilememesi zımnında işbu hacz-namenin bir nüshasının varis müteahhid merkum Simyon'a bir nüshasının zi'l-yed mümaileyh Mösyö Charles Reiser'e bir nüshasının meadin nezaret-i celilesine bir nüshasının (...) bir nüshasının dahi (...) kazası bidayet mahkemesi canib-i aliyyelerine tebliğine karar virilüb keyfiyyetin icra-yı memuriyyetine (...)\nFi 31 Ağustos sene 312\nBalıkpazarı'nda Arslan Hanı'nda 18 numerolu odada mukim tüccardan ?dosaki ?oğlu",
+        "scan": {
+          "name": "HR_HMS_ISO__00184_00021_005_001.jpg",
+          "id": "1W56aUxd6HSX-RkBxxgzoliyfQMf4A0aY"
+        }
+      },
+      {
+        "heading": "10. Sayfa",
+        "text": "36\n sene\n evrak\n 523\nMüstedi ? mümaileyh tarafından ibraz idilüb bade'l-mütalaa iade (...) iki kıta hüccet-i şeriyye mantukunca bin ve başkaca iki senedine? dahi 300 ki cem'an bin üç yüz lira-yı osmani mütehacciz Simyon Masihyan'ın murisi Tatyos Masihyan zimmetinde hâciz Bedosaki'nin? alacağı bulunduğu anlaşılub haczi taleb olunan Sarıtaş krom madeni imtiyazının dahi Medyon? müteveffanın hayatında Almanya devleti tebaasından ve tüccardan Mösyö Charles Reiser'in uhdesinde emaneten mukayyed idüği dahi 519 numerolu dosyada mevcud mümaileyh Mösyö Reiser'in izası? tahtında tercüme-i musaddak bir kıta mukavelenamenin hâtımesinde maden (...) umurunu idare itmek üzere müteveffa Tatyos Masihyan tarafından isticar idilen (...) üç ayda itası meşrut elli bir lira icaretin müstaciri namına şahs-ı salis Mösyö Reiser tarafından tesviye (...) kılınmış olması ve hâciz Bedosaki'nin? ibraz eylediği diğer bir ihzarnamede Mösyö Reiser'in müteveffa Tatyos Masihyan'ın 28 Ağustos sene 311 tarihli vekaletname mutasarrıfe/musaddıke? ile vekil-i umumisi bulundığı muharrer olması delaletiyle anlaşılub (...) suretler Mösyö Reiser'in maden-i mezkurda müteveffa Tatyos Masihyan namına ifa-yı tevkil idildiğinden delail-i kanuniyyeden madud ve bu gibi delaile (...) hacz ifası kanunen caiz olmasına ve ibraz idilen (...)-name dahi icrası hacze kafi görülmesine (...) müteveffa? bâ-ferman-ı alişan taht-ı tasarrufunda olub vefatıyla mütehacciz Simyon Masihyan'ın aidiyeti anlaşılan Hüdavendigar vilayeti dahilinde İnegöl kazası nevahisinden Kozcağız ve Sarıot mahalde kain Karasuboğazı ve Sarıtaş krom madeniyle maden-i mezburdan bi'l-ihrac Bozüyük istasyonuna ve Derince iskelesine tenzil idilen bin beş yüz ton krom cevherinin matlubat-ı mezburanın temin-i istifası zımnında bedelleri resmen depozito idilmedikce icra-yı muamele idilememek üzere Beyoğlu bidayet mahkemesi mukavelat-ı muharrer iki vasıtasıyla taht-ı hacze alınmasına ve işbu karar içün altun olarak yüz (...) hacz-i istifasına 9 (...) Eylül? sene 314 ve fi 6 Ağustos sene 312 tarihinde bi'l-ittifak karar virildi?\nBeyoğlu Bidayet Mahkemesi Birinci Hukuk Dairesi",
+        "scan": {
+          "name": "HR_HMS_ISO__00184_00021_005_002.jpg",
+          "id": "15asdNX0OXQmYEDSvMTblilZmCOLcIeGN"
+        }
+      }
+    ],
+    "archiveCode": "HR.HMŞ.İŞO.184-21",
+    "institution": "Hariciye Nezareti Hukuk Müşavirliği İstişare Odası",
+    "hijriDate": "03.03.1318",
+    "gregorianDate": "1 Temmuz 1900"
+  },
+  {
+    "code": "MV. / 202 - 101 -",
+    "id": "belge-012"
+  },
+  {
+    "code": "DH.İD.. / 105 - 6 -",
+    "id": "belge-013"
+  },
+  {
+    "code": "MVL / 683 - 70 -",
+    "id": "belge-014"
+  },
+  {
+    "code": "ŞD. / 1582 - 16 -",
+    "id": "belge-015"
+  },
+  {
+    "code": "HRT.h.. / 2304 - -",
+    "id": "belge-016"
+  },
+  {
+    "code": "PLK.p.. / 5487 - -",
+    "id": "belge-017"
+  },
+  {
+    "id": "belge-018",
+    "code": "ŞD. / 515 - 18 -",
+    "archiveCode": "ŞD.515-18",
+    "institution": "Şura-yı Devlet",
+    "hijriDate": "05.02.1312",
+    "gregorianDate": "18 Ağustos 1893",
+    "date": "18 Ağustos 1893 / H. 05.02.1312",
+    "summary": "Mültezim Nikola’nın Domaniç’in Sarıot civarında ihrc ettiği krom madeninin şimendiferle İzmid’e nakline izin verilmesi",
+    "sourceStatus": "Henüz satın almadım",
+    "pages": [
+      {
+        "heading": "1. Sayfa",
+        "text": "Orman ve Meadin ve Ziraat Nezareti\nOrman ve Meadin İdare-yi Umumiyyesi\nAded\n116\nMaruz-ı çaker-i kemineleridir ki\nHüdavendigar vilayeti dahilinde Ertuğrul sancağına tabi İnegöl kazasında Domaniç nahiyesinde Kozcığaz ve Sarıot karyeleri civarında ba-ferman-ı ali imal itmekde oldığı krom madeninden ihrac ve Bozüyük timuryolı mevkifine nakl eylediği bin tonilalık? cevherin İzmir iskelesine tenziliyle oradan Avrupa’ya emrarı? zımnında icabının icrası maden-i mezbur mültezimi Nikoola Kavade? imzasıyla virilen arzuhalde istida olunmuş ve zikr olunan madenden çıkarılacak cevherin Gemlik iskelesi vasıtasıyla nakl ve emrarı kerçe? ferman-ı ali ahkam-ı celilesinden ise de saye-yi ümran-vaye-i hazret-i padişahide Anadolu Şimendifer hattının temdid ve küşadıyla esbab-ı nakliyye her suretle (…) idilmiş olmasına ve Gemlik iskelesinin maden mahalline kırk elli ve Bozüyük şimendifer mevkifine ise sekiz saat mesafesi bulundığı tahkik olunmasına mebna bu defaya mahsus olmak üzere (…) mezkurü’l-mikdar cevherin şimendiferle İzmid’e nakl olunarak oradan tehmil-i sefine idilmesine (…) olunmamasının Hüdavendigar vilayet ve rüsumat emanet-i celileleriyle İzmid mutasarrıflığına ve maden mühendisliğine tebliğ (…) mahrec iskelenin bir muceb istida ? tahvil ve tebdili hususunun canib-i sami-yi fehimanelerine arz (…) encümenden ba-mazbata (…) ve mucebince emanet-i vilayet-i müşarünileyhimaya tebliğ madde? olunmağla olbabda ve her halde emr ü ferman hazret-i veliyyü’l-emrindir\nFi 10 Muharrem Sene 311\nve\nFi 12 Temmuz 319\nOrman ve Meadin ve Ziraat Nazırı\n(…)"
+      },
+      {
+        "heading": "2. Sayfa",
+        "text": "Notlar var"
+      },
+      {
+        "heading": "3. Sayfa",
+        "text": ""
+      },
+      {
+        "heading": "4. Sayfa",
+        "text": ""
+      }
+    ]
+  }
+];
+const storagePrefix='tezim-document-v1-';
+for(const d of documents){try{const saved=JSON.parse(localStorage.getItem(storagePrefix+d.id));if(saved&&saved.id===d.id&&Array.isArray(saved.pages)){const basePages=d.pages||[];Object.assign(d,saved);d.pages=saved.pages.map((page,i)=>({...page,scan:page.scan||basePages[i]?.scan}));}}catch{}}
+const $=id=>document.getElementById(id);
+const turkishMonths={'Ocak':1,'Şubat':2,'Mart':3,'Nisan':4,'Mayıs':5,'Haziran':6,'Temmuz':7,'Ağustos':8,'Eylül':9,'Ekim':10,'Kasım':11,'Aralık':12};
+function documentDate(d){const m=(d.gregorianDate||'').match(/^(\d{1,2}) ([^ ]+) (\d{4})$/);if(!m||!turkishMonths[m[2]])return Infinity;return Date.UTC(Number(m[3]),turkishMonths[m[2]]-1,Number(m[1]));}
+function pageRead(p){const text=(p.text||'').trim();return !!text&&!/okumadım/i.test(text)&&text!=='Notlar var';}
+function hasTranscription(d){return !!d.pages?.some(pageRead);}
+function orderedDocuments(){return documents.map((d,i)=>({d,i})).sort((a,b)=>Number(hasTranscription(b.d))-Number(hasTranscription(a.d))||documentDate(a.d)-documentDate(b.d)||a.i-b.i).map(x=>x.d);}
+function list(){const readDocuments=orderedDocuments().filter(hasTranscription),query=$('search').value.trim().toLocaleLowerCase('tr');const found=readDocuments.filter(d=>d.code.toLocaleLowerCase('tr').includes(query));$('records').replaceChildren();found.forEach(d=>{const li=document.createElement('li'),a=document.createElement('a'),code=document.createElement('span');a.href='#belge/'+encodeURIComponent(d.id);code.className='code';code.textContent=d.code;const date=document.createElement('span');date.className='record-date';date.textContent=d.date||'—';if(!d.date)date.setAttribute('aria-label','Tarih henüz eklenmedi');a.append(code,date);if(d.title){const title=document.createElement('span');title.className='record-title';title.textContent=d.title;a.append(title);}li.append(a);$('records').append(li);});$('count').textContent=readDocuments.length+' okunmuş belge';$('archive-empty').hidden=found.length>0;$('archive-empty').textContent=readDocuments.length?'Eşleşen arşiv kodu bulunamadı.':'Henüz okunmuş belge yok.';$('search-wrap').hidden=!readDocuments.length;}
+function addMetadata(label,value){const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value||'—';$('metadata').querySelector('dl').append(dt,dd);}
+function textSection(title,text){if(!text)return;const h=document.createElement('h2'),p=document.createElement('p');h.textContent=title;p.className='prose';p.textContent=text;$('document-body').append(h,p);}
+let activeDocument=null,activePage=0;
+function showPage(index){const pages=activeDocument?.pages||[];if(!pages.length)return;activePage=Math.max(0,Math.min(index,pages.length-1));Array.from($('page-select').options).forEach((option,i)=>option.textContent=pages[i].heading+' · '+(pageRead(pages[i])?'Okundu':'Okunmadı'));$('page-select').value=String(activePage);$('page-title').textContent=pages[activePage].heading;$('page-status').textContent=pageRead(pages[activePage])?'Okundu':'Okunmadı';$('page-text').textContent=pages[activePage].text||'Henüz transkripsiyon eklenmedi.';const scan=pages[activePage].scan;$('toggle-scan').hidden=!scan;$('toggle-scan').setAttribute('aria-expanded','false');$('toggle-scan').textContent='Belge görüntüsünü aç';$('scan-panel').hidden=true;$('scan-image').removeAttribute('src');if(scan){$('scan-image').alt=pages[activePage].heading+' belge görüntüsü';$('scan-link').href='https://drive.google.com/file/d/'+encodeURIComponent(scan.id)+'/view';}$('page-count').textContent=(activePage+1)+' / '+pages.length;$('previous-page').disabled=activePage===0;$('next-page').disabled=activePage===pages.length-1;}
+function buildDocumentList(activeId){$('document-list').replaceChildren();for(const doc of orderedDocuments().filter(hasTranscription)){const li=document.createElement('li'),a=document.createElement('a');a.href='#belge/'+encodeURIComponent(doc.id);a.textContent=doc.code;a.title=doc.code;if(doc.id===activeId)a.setAttribute('aria-current','page');li.append(a);$('document-list').append(li);}}
+function renderDocument(d){activeDocument=d;activePage=0;$('metadata').replaceChildren();$('document-body').replaceChildren();$('document-form').hidden=true;$('reader').hidden=!d?.pages?.length;buildDocumentList(d?.id);$('document-code').textContent=d?.code||'Belge bulunamadı';if(!d)return;const dl=document.createElement('dl');$('metadata').append(dl);addMetadata('Yer Bilgisi',d.archiveCode||d.code.replaceAll(' ','').replaceAll('/',''));addMetadata('Kurum',d.institution);addMetadata('Hicri Tarih',d.hijriDate);addMetadata('Miladi Tarih',d.gregorianDate||d.date);addMetadata('Özet',d.summary);if(d.title)textSection('Başlık',d.title);if(d.transcription)textSection('Transkripsiyon',d.transcription);if(d.notes)textSection('Notlar',d.notes);if(d.sourceStatus)textSection('Görüntü durumu',d.sourceStatus);if(d.files?.length){const h=document.createElement('h2'),ul=document.createElement('ul');h.textContent='Bağlantılar';ul.className='files';for(const file of d.files){let url;try{url=new URL(file.url,location.href);}catch{continue;}if(!['http:','https:'].includes(url.protocol))continue;const li=document.createElement('li'),a=document.createElement('a');a.textContent=file.name;a.href=url.href;li.append(a);ul.append(li);}$('document-body').append(h,ul);}if(d.pages?.length){$('page-select').replaceChildren();d.pages.forEach((page,i)=>{const o=document.createElement('option');o.value=String(i);o.textContent=page.heading;$('page-select').append(o);});showPage(0);}else if(!d.summary&&!d.title&&!d.transcription&&!d.notes)textSection('Belge içeriği','Henüz eklenmedi.');}
+function render(){const hash=location.hash.slice(1);let section='home',heading;['home','archive','document','other'].forEach(id=>$(id).hidden=true);document.title='Tez Araştırması';if(hash==='osmanli-arsivi'){section='archive';list();heading=$('archive').querySelector('h1');}else if(hash.startsWith('belge/')){section='document';let id;try{id=decodeURIComponent(hash.slice(6));}catch{id='';}renderDocument(documents.find(item=>item.id===id));heading=$('document-code');}else if(hash==='uluslararasi-yayinlar'||hash==='ikincil-literatur'||hash==='belgelerdeki-kisiler'){section='other';$('other-title').textContent=hash==='ikincil-literatur'?'İkincil Literatür':hash==='belgelerdeki-kisiler'?'Belgelerdeki Kişiler':'Belgeler: Uluslararası Ticaret ve Bilim Yayınları';heading=$('other-title');}$(section).hidden=false;document.body.classList.toggle('document-view',section==='document');if(heading){document.title=heading.textContent+' | Tez Araştırması';heading.focus({preventScroll:true});}window.scrollTo(0,0);}
+$('toggle-scan').addEventListener('click',()=>{const scan=activeDocument?.pages?.[activePage]?.scan;if(!scan)return;const opened=$('scan-panel').hidden;$('scan-panel').hidden=!opened;$('toggle-scan').setAttribute('aria-expanded',String(opened));$('toggle-scan').textContent=opened?'Belge görüntüsünü kapat':'Belge görüntüsünü aç';if(opened)$('scan-image').src='https://lh3.googleusercontent.com/u/0/d/'+encodeURIComponent(scan.id)+'=w1600-h900-iv1';});
+$('previous-page').addEventListener('click',()=>showPage(activePage-1));$('next-page').addEventListener('click',()=>showPage(activePage+1));$('page-select').addEventListener('change',e=>showPage(Number(e.target.value)));
+function pageEditor(page={heading:'',text:''}){const box=document.createElement('div');box.className='page-editor';box.scan=page.scan||null;const heading=document.createElement('input'),body=document.createElement('textarea'),remove=document.createElement('button');heading.value=page.heading;heading.placeholder='Örn. 1. Sayfa';heading.setAttribute('aria-label','Sayfa başlığı');body.value=page.text;body.setAttribute('aria-label','Sayfa metni');remove.type='button';remove.textContent='Sayfayı kaldır';remove.addEventListener('click',()=>box.remove());box.append(heading,body,remove);$('edit-pages').append(box);}
+$('edit-document').addEventListener('click',()=>{if(!activeDocument)return;const d=activeDocument;$('edit-code').value=d.archiveCode||d.code.replaceAll(' ','').replaceAll('/','');$('edit-institution').value=d.institution||'';$('edit-hijri').value=d.hijriDate||'';$('edit-gregorian').value=d.gregorianDate||'';$('edit-summary').value=d.summary||'';$('edit-source-status').value=d.sourceStatus||'';$('edit-pages').replaceChildren();(d.pages||[]).forEach(pageEditor);$('document-form').hidden=false;$('reader').hidden=true;$('document-body').hidden=true;$('edit-document').hidden=true;$('edit-code').focus();});
+$('add-page').addEventListener('click',()=>{pageEditor({heading:(document.querySelectorAll('.page-editor').length+1)+'. Sayfa',text:''});$('edit-pages').lastElementChild.querySelector('textarea').focus();});
+function closeEditor(){$('document-form').hidden=true;$('document-body').hidden=false;$('edit-document').hidden=false;$('reader').hidden=!activeDocument?.pages?.length;}
+$('cancel-edit').addEventListener('click',closeEditor);
+$('document-form').addEventListener('submit',e=>{e.preventDefault();const d=activeDocument;if(!d)return;const updated={...d,archiveCode:$('edit-code').value.trim(),institution:$('edit-institution').value.trim(),hijriDate:$('edit-hijri').value.trim(),gregorianDate:$('edit-gregorian').value.trim(),summary:$('edit-summary').value.trim(),sourceStatus:$('edit-source-status').value.trim(),pages:[...document.querySelectorAll('.page-editor')].map(box=>({heading:box.querySelector('input').value.trim(),text:box.querySelector('textarea').value,scan:box.scan}))};updated.date=[updated.gregorianDate,updated.hijriDate?'H. '+updated.hijriDate:''].filter(Boolean).join(' / ');try{localStorage.setItem(storagePrefix+d.id,JSON.stringify(updated));Object.assign(d,updated);renderDocument(d);closeEditor();$('save-status').textContent='Bu tarayıcıya kaydedildi.';list();}catch{$('save-status').textContent='Kaydedilemedi. Tarayıcı depolaması dolu veya kapalı olabilir.';}});
+$('download-changes').addEventListener('click',()=>{const edited=documents.filter(d=>localStorage.getItem(storagePrefix+d.id)).map(d=>JSON.parse(localStorage.getItem(storagePrefix+d.id)));if(!edited.length){$('save-status').textContent='Henüz kaydedilmiş değişiklik yok.';return;}const blob=new Blob([JSON.stringify({format:'tezim-document-v1',documents:edited},null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='tezim-belge-degisiklikleri.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+$('search').addEventListener('input',list);window.addEventListener('hashchange',render);render();
+</script>
+</body>
+</html>
